@@ -1,0 +1,10 @@
+@charset "ISO-8859-1";
+
+body {
+	background: #ddd;
+}
+
+.card-form{
+	width: 25em;
+	margin: 3em auto;
+}
