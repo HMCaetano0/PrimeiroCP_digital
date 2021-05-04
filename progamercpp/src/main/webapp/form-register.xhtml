@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+   
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+		<p:messages id="messages"><p:autoUpdate /></p:messages>
+
+		<h:form>
+		<p:card class="card-form">
+		    <f:facet name="title">
+		        New Setup
+		    </f:facet>
+		   
+				<h:panelGrid columns="2">
+					<p:outputLabel for="nameUser" value="Name"/>
+					<p:inputText id="nameUser" value="#{registerBean.register.nameUser}" required="true" >
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					<p:outputLabel for="dateOfBirth" value="Date Of Birth"/>
+					<p:inputText id="dateOfBirth" value="#{registerBean.register.dateOfBirth}" required="true" converterMessage="Preço deve ser um numero">
+						<f:validateDoubleRange minimum="0" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					<p:outputLabel for="email" value="E-mail"/>
+					<p:inputText id="email" value="#{registerBean.register.email}" required="true" validatorMessage="O campo deve ter pelo menos 10 caracteres" >
+						<f:validateLength minimum="10" maximum="255" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					<p:outputLabel for="price" value="Password"/>
+					<p:inputText id="price" value="#{registerBean.register.password}" required="true" converterMessage="Preço deve ser um numero">
+						<f:validateDoubleRange minimum="8" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					
+					
+				</h:panelGrid>
+			
+			
+		    <f:facet name="footer">
+		        <p:commandButton icon="pi pi-check" value="Save" action="#{registerBean.save}">
+		        	<p:ajax execute="@form" update="table-register" />
+		        </p:commandButton>
+		        <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
+		    </f:facet>
+		</p:card>
+		</h:form>
+		
+		<h:form id="table-register" >
+		    <div class="card">
+		        <p:dataTable var="register" value="#{registerBean.setups}">
+		            <p:column headerText="Name">
+		                <h:outputText value="#{register.nameUser}" />
+		            </p:column>
+		
+		            <p:column headerText="Email">
+		                <h:outputText value="#{register.email}" />
+		            </p:column>
+		        </p:dataTable>
+		    </div>
+		</h:form>
+		
+		
+	</ui:define>
+		
+</ui:composition>
+
+</html>
